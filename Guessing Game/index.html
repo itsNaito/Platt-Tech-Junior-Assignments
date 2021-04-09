@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<script>
+
+		//
+		//Guessing Game
+		//SemiOtto
+		//10/7/2020
+		//
+
+		//variable that stores the number of guesses that the player has used
+		var guesses = 0;
+
+		//variable that creates the random value the user is looking for between 1 and 100
+		var randomValue = Math.floor(Math.random()* 100) + 1;
+
+		//function that does all the guessing processing
+		function Guess()
+		{
+			//variable that adds 1 to the guesses making it so the number rises keeping track of guesses
+			guesses +=1;
+			
+			//variable that grabs the player's answer from the input box and stores it for use
+			var answer = document.getElementById("answer").value;
+			
+			//if statement that looks to see if the player's guess is wrong and if the player has already guessed 5 times
+			if(answer !== randomValue && guesses == 5)
+			{
+				//changes the input box header to display that the game is over and the randomValue answer
+				document.getElementById("temp").innerHTML = "Game Over the answer was " + randomValue;
+			}
+			//else if statement to check if the player still has guesses left
+			else if(guesses < 5)
+			{
+				//if statement to check if the correct answer is greater than the player guess
+			 	if(randomValue > answer)
+				{
+					//edits the input box header to display higher when the randomValue is greater than the player guess
+					document.getElementById("temp").innerHTML = "higher";
+				}
+				//else if statement that checks if the correct answer is less than the player guess
+				else if(randomValue < answer)
+				{
+					//changes the input box header to say lower when the randomValue is smaller than the player guess
+					document.getElementById("temp").innerHTML = "lower";
+				}
+			}
+			//if statement to check to see if the player got the correct answer
+			if(answer == randomValue)
+			{
+				//edits the input box header to display that the player is correct by grabbing the id attached to the element temp
+				document.getElementById("temp").innerHTML = "Correct You Win";
+			}
+		}
+		//function that runs when the restart button is pressed
+		function Restart()
+		{
+			window.location.reload();
+		}
+		
+	</script>
+
+	<title>Guessing Game</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<meta charset ="utf-8">
+
+	<meta name ="viewport" content ="width=device-width, intitial-scale=1">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="bg-dark">
+
+	<div class="container-fluid bg-dark text-white text-center">
+
+		<h1>Guess The Number Game</h1>
+
+	</div>
+
+	<div class="row">
+
+		<div class="col-sm-3 bg-dark text-white"><h2 class="font-weight-bold instructions">Instructions</h2>
+
+		<p class="p">This game is all about guessing a number. The program will come up with a random number between 0 and 100. Your goal as the player is to find this number. You will get 5 guesses, and will be told if the number is higher or lower than your guess. Once you click the guess button on the 6th button press it will just give you the answer. On the right you can see that you have an input box to place your number, a restart button to start the program over, and a guess button to check if your guess is correct. Now, can you guess the number.</p></div>
+
+		<div class="col-sm-5 bg-secondary text-white">
+
+			<h2 class="text-center">Guessing Chamber</h2>
+
+			<h4 class="text-center" id="temp"><br>Input Box</h4><br>
+
+			<div class="text-center"><input id="answer">
+
+			<button onClick="Guess();">Guess</button>
+
+			<button onClick="Restart();">Restart</button></div>
+
+		</div>
+
+		<div class="col-sm-3 bg-dark text-white">
+
+			<h2 class="bottom">Player Motivation</h2>
+
+			<img src="images/guess.png" alt="guess the number" height="200">
+
+			<img src="images/do.jpeg" alt="You can do it, believe in yourself" height="300">
+		</div>
+
+	</div>
+
+</body>
+
+</html>
