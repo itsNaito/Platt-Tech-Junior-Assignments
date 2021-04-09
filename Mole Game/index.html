@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<title>Moles In The Hole</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<meta charset ="utf-8">
+
+	<meta name ="viewport" content ="width=device-width, intitial-scale=1">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
+		//
+		//Whack Monty Mole
+		//SemiOtto
+		//11/4/2020
+		//
+
+		//This program is whack a mole. Using images that I found online, the user can see how many moles they can get within 30 seconds. In this program, I was able to mess around with incrementing and decrementing variables.
+
+		/*Below is a set of variable used throughout the program for various things*/
+		
+		let molePos = null;//variable used to give the mole image a position on the page at one of the grids
+
+		let moles = 0;//variable used to stop the play button from working after starting game and is used in calulations to ensure that the player actually clicked on a mole
+
+		let score = 0;//variable used to track how many points the players has in the game
+
+		let time = 30;//variable used to track the time left in the game before it ends
+
+		let lastPos = null;//variable used to stop the mole from spawning back in the same position it was just clicked in
+
+		let monty = "images/moleHole.png";//variable used for changing images
+
+		let holes = "images/hole.png";//variable used for changing images
+
+		function moleSettings()//function that runs off an onClick event on the play button that only works once and is in charge of the settings for the game
+		{
+			if(moles == 0)//if statement that prevents the play button from affecting the game because mole always has a value after the first click of the play game button
+			{
+				setInterval(timer, 1000);//setInterval function is in charge of tracking every second since the start of the game
+
+				document.getElementById("gameTime").style.color = "black";//changes the color of the timer text displayed to the user
+
+				document.getElementById("score").style.color = "black";//changes the color of teh score text displayed to the user
+
+				moleSpawner();//function call to the function that controls the spawning of the mole
+			}
+		}
+
+		function timer()//function that manages all the aspects of the timer displayed to the user
+		{
+			if(time != 0)//if statement to make sure that the time variable isn't 0 yet because once it hits zero it can stop lowering the value
+			{
+				time -= 1;//decreasing the variable of time by using a compound operator to lower the value by 1
+			}
+
+			document.getElementById("gameTime").innerHTML =  "Time: " + time;//displays the time left in the game to the user by getting the id of the element
+
+			if(time == 10)//if statement that checks to see if the time variable equal to 10
+			{
+				document.getElementById("gameTime").style.color = "red";//changes the text displaying the time to be the color red
+			}
+		}
+
+		function moleSpawner()
+		{
+			/*The 6 document.getElementById tags are there to reset all the holes when the player clicks on the mole creating the illusion that the mole disappeared and moved to a new hole*/
+			document.getElementById("topLeftMole").src = holes;//changes the top left grid image to be a mole hole
+
+			document.getElementById("topMiddleMole").src = holes;//changes the top middle grid image to be a mole hole
+
+			document.getElementById("topRightMole").src = holes;//changes the top right grid image to be a mole hole
+
+			document.getElementById("bottomLeftMole").src = holes;//changes the bottom left grid image to be a mole hole
+
+			document.getElementById("bottomMiddleMole").src = holes;//changes the bottom middle grid image to be a mole hole
+
+			document.getElementById("bottomRightMole").src = holes;//changes the bottom right grid image to be a mole hole
+			
+			molePos = Math.floor(Math.random() * 6 + 1);//sets the value of molePos to be a random number between 1 and 6
+
+			if(molePos == lastPos)//if statement that blocks the function from continuing molePos is the same value as lastPos ensuring that the mole doesn't stay in the same hole twice
+			{
+				moleSpawner();//recalls itself to change the value of molePos at the start 
+			}
+
+			if(time != 0)//if statement that checks to make sure the time variable isn't equal to zero yet meaning the game hasn't ended allowing for moles to still spawn
+			{
+				if(molePos == 1)//if statement that checks to see what if molePos is equal to 1 meaning that the mole will spawn in the top left hole
+				{
+					document.getElementById("topLeftMole").src = monty;//changes the hole image to be the image with the mole popping out
+
+					moles = 1;//sets the variable moles to be 1 for later use in the scored() function
+				}
+
+				else if(molePos == 2)//if statement that checks to see what if molePos is equal to 2 meaning that the mole will spawn in the top middle hole
+				{
+					document.getElementById("topMiddleMole").src = monty;//changes the hole image to be the image with the mole popping out
+
+					moles = 2;//sets the variable moles to be 2 for later use in the scored() function
+				}	
+
+				else if(molePos == 3)//if statement that checks to see what if molePos is equal to 3 meaning that the mole will spawn in the top right hole
+				{
+					document.getElementById("topRightMole").src = monty;//changes the hole image to be the image with the mole popping out
+
+					moles = 3;//sets the variable moles to be 3 for later use in the scored() function
+				}
+
+				else if(molePos == 4)//if statement that checks to see what if molePos is equal to 4 meaning that the mole will spawn in the bottom left hole
+				{
+					document.getElementById("bottomLeftMole").src = monty;//changes the hole image to be the image with the mole popping out
+
+					moles = 4;//sets the variable moles to be 4 for later use in the scored() function
+				}
+
+				else if(molePos == 5)//if statement that checks to see what if molePos is equal to 5 meaning that the mole will spawn in the bottom middle hole
+				{
+					document.getElementById("bottomMiddleMole").src = monty;//changes the hole image to be the image with the mole popping out
+
+					moles = 5;//sets the variable moles to be 5 for later use in the scored() function
+				}
+
+				else if(molePos == 6)//if statement that checks to see what if molePos is equal to 6 meaning that the mole will spawn in the bottom right hole
+				{
+					document.getElementById("bottomRightMole").src = monty;//changes the hole image to be the image with the mole popping out
+
+					moles = 6;//sets the variable moles to be 6 for later use in the scored() function
+				}
+			}
+		}
+
+		function scored(mouseClick)//function that is in charge of the scoring for the game and has a parameter called mouseClick that is used on onClick events found on the image
+		{
+			lastPos = molePos;//sets the variable lastPos to be equal to MolePos
+
+			if(mouseClick == moles)//if statement that checks if mouseClick has the same value as moles. If the values are the same it means that the player clicked on the mole image and if the values are different it means the player clicked on an empty hole
+			{
+				score++;//increments the variable score by 1
+
+				document.getElementById("score").innerHTML = "Score: " + score;//displays the player's current score on the page by finding the tag with the score id
+
+				moleSpawner();//calls the moleSpawner function to spawn a new mole now that the player has clicked on the old mole
+			}
+		}
+
+		function restart()//function that is in charge of restarting of the game without reloading the page. This function is called off of an OnClick event found on a button called restart
+		{
+			time = 30;//resets the time variable back to 30 meaning that the player has 30 seconds to play the game again
+
+			score = 0;//resets the score variable back to 0 allowing the player to restart to try to beat their last score
+
+			document.getElementById("gameTime").innerHTML =  "Time: " + time;//displays the time to the player back to the value of 30 showing the player that the timer has restarted
+
+			document.getElementById("gameTime").style.color = "black";//changes the color of the time text back to black to make sure that the text doesn't stay red when the player restarts
+
+			document.getElementById("score").innerHTML = "Score: " + score;//dispalys the score to the player back to 0 showing the player that the score has reset allowing for a new attempt
+
+			moleSpawner();//recalls the moleSpawner function to allow for the mole to spawn again just in case the game was at 0 seconds before with no moles
+		}
+	</script>
+
+</head>
+
+<body class="bg-success">
+
+	<h1>The Mole Game</h1>
+	
+	<div class="container-fluid">
+
+	<h2>Rules</h2>
+
+	<p>The game is pretty straight-forward. Your goal is to click the play button below and enjoy a game of whack-a-mole that I have created on this site. You will have a grand total of 30 seconds to see how many you can hit before time runs out.</p>
+	
+	</div>
+	
+	<div class="text-center">
+
+	<button onClick="moleSettings();">Play Game</button>
+	<button onClick="restart();">Restart</button>
+	
+	</div>
+
+	<div class="container-fluid text-left">
+		<h3 id="score">Score: 0</h3>
+		<h3 id="gameTime">Time: </h3>
+	</div>
+
+	<div class="row container-fluid text-center">
+
+		<div class="col" onClick="scored(1);"><img src="images/hole.png" alt="mole hole" width="300" id="topLeftMole"></div>
+
+		<div class="col" onClick="scored(2);"><img src="images/hole.png" alt="mole hole" width="300" id="topMiddleMole"></div>
+
+		<div class="col" onClick="scored(3);"><img src="images/hole.png" alt="mole hole" width="300" id="topRightMole"></div>
+
+	</div>
+
+	<br>
+
+	<div class="row container-fluid text-center">
+
+		<div class="col" onClick="scored(4);"><img src="images/hole.png" alt="mole hole" width="300" id="bottomLeftMole"></div>
+
+		<div class="col" onClick="scored(5);"><img src="images/hole.png" alt="mole hole" width="300" id="bottomMiddleMole"></div>
+
+		<div class="col" onClick="scored(6);"><img src="images/hole.png" alt="mole hole" width="300" id="bottomRightMole"></div>
+		
+	</div>
+
+</body>
+
+</html>
