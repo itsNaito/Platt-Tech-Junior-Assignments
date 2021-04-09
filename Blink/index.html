@@ -1,0 +1,103 @@
+<html>
+
+<head>
+	
+	<title>Blinker</title>
+	
+	<script>
+		//
+		//The Blinking Eyes
+		//SemiOtto
+		//10/26/2020
+		//
+
+		//This program was a test to experiment with timer and onmouse events. The program is a set of blinking eyes that follow the user's mouse around changing the image to present the illusion that the eyes move
+		
+		//let seconds = Math.floor(Math.random() * 2000 + 1000)
+		let seconds = 2000;
+
+		const BLINKTIMER = setInterval(eyeBlink, seconds);// This is a constant variable that houses the timer that makes the eyes blink every couple seconds.
+
+		let mousePos = 0;
+
+		function eyeBlink()
+		{
+			document.getElementById("Left-eye").src = "images/closed.gif";
+			document.getElementById("Right-eye").src = "images/closed.gif";
+			setTimeout(eyes , 200);
+		}
+		function eyes()
+		{
+			mousePos;
+			if(mousePos == 0)
+			{
+				document.getElementById('Left-eye').src = 'images/eye_c.gif';
+				document.getElementById('Right-eye').src = 'images/eye_c.gif';
+			}
+			else if(mousePos == 1)
+			{
+				document.getElementById('Left-eye').src = 'images/eye_ul.gif';
+				document.getElementById('Right-eye').src = 'images/eye_ul.gif';
+			}
+			else if(mousePos == 2)
+			{
+				document.getElementById('Left-eye').src = 'images/eye_uc.gif';
+				document.getElementById('Right-eye').src = 'images/eye_uc.gif';
+			}
+			else if(mousePos == 3)
+			{
+				document.getElementById('Left-eye').src = 'images/eye_ur.gif';
+				document.getElementById('Right-eye').src = 'images/eye_ur.gif';
+			}
+			else if(mousePos == 4)
+			{
+				document.getElementById('Left-eye').src = 'images/eye_cl.gif';
+				document.getElementById('Right-eye').src = 'images/eye_cl.gif';
+			}
+			else if(mousePos == 6)
+			{
+				document.getElementById('Left-eye').src = 'images/eye_cr.gif';
+				document.getElementById('Right-eye').src = 'images/eye_cr.gif';
+			}
+			else if(mousePos == 7)
+			{
+				document.getElementById('Left-eye').src = 'images/eye_ll.gif';
+				document.getElementById('Right-eye').src = 'images/eye_ll.gif';
+			}
+			else if(mousePos == 8)
+			{
+				document.getElementById('Left-eye').src = 'images/eye_lc.gif';
+				document.getElementById('Right-eye').src = 'images/eye_lc.gif';
+			}
+			else if(mousePos == 9)
+			{
+				document.getElementById('Left-eye').src = 'images/eye_lr.gif';
+				document.getElementById('Right-eye').src = 'images/eye_lr.gif';
+			}
+		}
+	</script>
+
+</head>
+
+<body>
+	<table width="1000" height=700 align="center">
+		<tr>
+			<td onmouseover="eyes(mousePos = 1);" onmouseout = "eyes(mousePos = 0);"></td>
+			<td onmouseover ="eyes(mousePos = 2);" onmouseout="eyes(mousePos = 0);"></td>
+			<td onmouseover="eyes(mousePos = 3)" onmouseout="eyes(mousePos = 0);"></td>
+		</tr>
+		<tr>
+			<td onmouseover="eyes(mousePos = 4);" onmouseout="eyes(mousePos = 0);"></td>
+			<td width="332" onmouseover="eyes(mousePos = 0);" onmouseout="eyes(mousePos = 0);"><img src="images/eye_c.gif" id="Left-eye">
+			<img src="images/eye_c.gif" id="Right-eye"></td>
+			<td onmouseover="eyes(mousePos = 6);" onmouseout="eyes(mousePos = 0);"></td>
+		</tr>
+		<tr>
+			<td onmouseover="eyes(mousePos = 7);" onmouseout="eyes(mousePos = 0);"></td>
+			<td onmouseover="eyes(mousePos = 8)" onmouseout="eyes(mousePos = 0);"></td>
+			<td onmouseover="eyes(mousePos = 9)" onmouseout="eyes(mousePos = 0);" ></td>
+		</tr>
+	</table>
+</body>
+
+</html>
