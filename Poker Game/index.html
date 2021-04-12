@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<title>Poker Game</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<meta charset ="utf-8">
+
+	<meta name ="viewport" content ="width=device-width, intitial-scale=1">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
+		//
+		//Poker Game
+		//SemiOtto
+		//November 16, 2020
+		//
+
+		//This is a program that simulates a normal game of Poker. There is an array that stores all the cards used and ensures that no card is used twice when producing random numbers from the drawnCard variable.
+		/*These are all the variables used throughout the program each dealing with production of cards in some way*/
+		let cards = [];//this is the array that keeps track of the cards used
+		let drawnCard = null;//this is a variable used to produce random cards later in the program
+		const finder = -1;//this is a constant variable that checks to see if the value of drawnCard is not inside the cards array
+		let cardPos = 0;//this is a variable used for displaying 10 cards and stopping the deal button
+		let converter = null;//this is a variable that is used for converting cardPos into a string inorder to use for the ids of the pictures and array element position
+
+		function deal()//This is the deal button function that starts the program off
+		{
+			if(cardPos == 0 || cardPos == 10)//this is an if statement that checks the value of cardPos using an or operator that only allows the button to work at the start and end of the program
+			{
+				//all these document.getElementById commands reset all the cards to be blank for the start of a new game when the button is pressed
+				document.getElementById("0").src = "images/blank.jpg";
+				document.getElementById("1").src = "images/blank.jpg";
+				document.getElementById("2").src = "images/blank.jpg";
+				document.getElementById("3").src = "images/blank.jpg";
+				document.getElementById("4").src = "images/blank.jpg";
+				document.getElementById("5").src = "images/blank.jpg";
+				document.getElementById("6").src = "images/blank.jpg";
+				document.getElementById("7").src = "images/blank.jpg";
+				document.getElementById("8").src = "images/blank.jpg";
+				document.getElementById("9").src = "images/blank.jpg";
+				cardPos = 0;//sets the value of cardPos to 0 for the start of a new game because the value will always end at 10 and needs to reset
+				cards =[];//sets the cards array to be empty for a new game to be played
+				timer();//function call to the timer function
+			}
+		}
+		function timer()//function that controls the time between each cards placement
+		{
+			setTimeout(draw, 500);//Timer function that calls the draw function after half a second to then place a new card
+		}
+
+		function draw()//function that controls the drawing of new cards and the placement of cards
+		{
+			if(cardPos != 10)//if statement that stops new cards from being created when cardPos is equal to ten.
+			{
+				drawnCard = Math.floor(Math.random() * 52) + 1;//the drawnCard variable is grabbing a random number between 1 and 52
+				if(cards.indexOf(drawnCard) == finder)//if statement checks to see if the drawnCard's value is not inside of the cards array. finder is equal to -1 which is the value returned if the indexOf function can't find the value
+				{
+					cards.push(drawnCard);//adds the drawnCard value into the array
+					converter = cardPos.toString()//the converter variable takes the value of cardPos and makes it into a string so that converter can used for the id of the images and the index of the element for the card array
+					document.getElementById(converter).src = "images/" + cards[converter] + ".jpg";//document.getElementById is displaying the new card that was added to the cards array. Each card is named as a value between 1 and 52. Converter is used for the id as each id a number 0-9 and the cards array will only contain 10 values 0-9 for the cards. 
+					cardPos++;/*cardPos is incrementing each time as converter needs it to change the next card, the button needs it to be 0 or 10, and the first if statement in this function needs it to be 10 to stop card production*/
+					timer();//function call that recalls the timer to start the process again
+				}
+				else//else statment that runs if the drawnCard value is already inside of the cards array
+				{
+					draw();//function call that recalls the draw function
+				}
+			}
+		}
+	</script>
+</head>
+
+<body class="bg-secondary">
+
+		<h1>Cool Poker</h1>
+
+		<div class = "row container-fluid">
+			<div class = "col"><p>Computer</p></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id= "0"></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id= "2"></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id="4"></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id="6"></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id="8"></div>
+		</div>
+
+		<br>
+
+		<div class = "row container-fluid">
+			<div class = "col"><p>Player</p></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id="1"></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id="3"></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id="5"></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id="7"></div>
+			<div class = "col"><img src = "images/blank.jpg" alt = "Blank Card" id="9"></div>
+		</div>
+
+		<div class="text-center">
+			<button onClick = "deal();">Deal</button>
+		</div>
+
+</body>
+
+</html>
